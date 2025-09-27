@@ -1,0 +1,179 @@
+/* src/components/DashboardSections/Financas.css */
+
+/* --- Estilos Gerais (Padrão de Tarefas) --- */
+
+.back-to-dashboard-link {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-to-dashboard-link a {
+  color: #cbd5e1;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.back-to-dashboard-link a:hover {
+  color: #fff;
+}
+
+/* --- Estilos Específicos de Finanças (Resumo e Gráfico) --- */
+
+.finance-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summary-total {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.summary-total h3 {
+  margin-top: 0;
+  color: #a0aec0;
+  font-size: 18px;
+}
+
+.summary-total p {
+  font-size: 36px;
+  font-weight: bold;
+  color: #ef4444; /* Vermelho para gastos */
+  margin: 10px 0 0 0;
+}
+
+.summary-chart {
+  max-height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* --- Estilos Reutilizados de Tarefas (Formulário e Lista) --- */
+
+.tasks-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+}
+
+.tasks-form-section h3, .tasks-list-section h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.task-form input, .task-form textarea, .task-form select {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    padding: 12px;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    font-family: inherit;
+    color-scheme: dark;
+}
+
+.task-form button {
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4f46e5;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    text-shadow: none;
+}
+
+.tasks-filter {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.tasks-filter select {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    padding: 10px;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    font-family: inherit;
+    color-scheme: dark;
+    flex-grow: 1;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.task-item {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.task-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.task-item-header h4 {
+    margin: 0;
+    font-size: 18px;
+}
+.task-item-body p {
+    margin: 10px 0;
+    color: #cbd5e1;
+}
+
+.task-item-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #a0aec0;
+}
+.task-actions button {
+    background: none;
+    border: none;
+    color: #cbd5e1;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+    padding: 5px;
+}
+.task-actions button:hover {
+    color: #fff;
+}

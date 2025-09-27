@@ -1,0 +1,104 @@
+/* src/components/Dashboard/Dashboard.css */
+
+.dashboard-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("assets/bg.webp"); /* Um fundo escuro sólido para a área do dashboard */
+  
+}
+
+/* --- Sidebar (Menu Lateral) --- */
+.dashboard-sidebar {
+  width: 240px;
+  background: rgba(30, 41, 59, 0.5); /* Semi-transparente, estilo glassmorphism */
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+
+.sidebar-header {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1; /* Ocupa o espaço disponível */
+}
+
+.sidebar-menu li a {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Espaço entre o ícone e o texto */
+  padding: 15px 10px;
+  color: #cbd5e1;
+  text-decoration: none;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar-menu li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* Estilo para o link ativo (pode ser implementado com NavLink) */
+.sidebar-menu li a.active {
+  background-color: #4f46e5;
+  color: #fff;
+}
+
+.logout-button {
+  width: 100%;
+  padding: 15px;
+  background-color: #ef4444;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: none;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.logout-button:hover {
+  background-color: #dc2626;
+}
+
+
+/* --- Área de Conteúdo Principal --- */
+.dashboard-content {
+  flex-grow: 1; /* Ocupa o restante do espaço */
+  padding: 40px;
+  overflow-y: auto; /* Adiciona scroll se o conteúdo for grande */
+}
+
+.content-header {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.content-header h1 {
+  font-size: 28px;
+}
+
+/* Estilos para os componentes de conteúdo */
+.page-content {
+  background: rgba(30, 41, 59, 0.3);
+  padding: 30px;
+  border-radius: 10px;
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(5px);
+}
