@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { FaEdit, FaTrash, FaArrowLeft } from 'react-icons/fa';
-import '../tarefa/tarefa.css';
+import './tarefa.css';
 
 // Configuração do Axios para enviar o token de autenticação em todas as requisições
 const api = axios.create({

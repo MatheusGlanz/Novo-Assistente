@@ -17,13 +17,13 @@ const ResetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      return setError("As senhas не coincidem.");
+      return setError("As senhas não coincidem.");
     }
     setError("");
     setMessage("");
 
     try {
-      const res = await axios.post(`https://assistente-backend-auus.onrender.com/api/reset-password/${token}`, { password });
+      const res = await axios.post(`https://assistente-backend-auus.onrender.com/api${token}`, { password });
       setMessage(res.data.message + " Redirecionando para o login...");
       setTimeout(() => {
         navigate("/login");
@@ -73,6 +73,5 @@ const ResetPassword = () => {
     </div>
   );
 };
-
 
 export default ResetPassword;

@@ -115,7 +115,7 @@ app.post('/api/forgot-password', async (req, res) => {
     if (userResult.rows.length > 0) {
       const user = userResult.rows[0];
       const resetToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '15m' });
-      const resetUrl = `https://assistente-backend-auus.onrender.com/api/reset-password/${resetToken}`;
+      const resetUrl = `https://assistente-backend-auus.onrender.com/api${resetToken}`;
 
       // CORREÇÃO: Altere o 'from' para o e-mail que você verificou no SendGrid
       const info = await transporter.sendMail({

@@ -16,7 +16,7 @@ const ForgotPassword = () => {
     setMessage("");
     setError("");
     try {
-      const res = await axios.post("https://assistente-backend-auus.onrender.com/api/forgot-password", { email });
+      const res = await axios.post("https://assistente-backend-auus.onrender.com/api", { email });
       setMessage(res.data.message);
     } catch (err) {
       setError("Ocorreu um erro. Tente novamente.");
@@ -56,6 +56,5 @@ const ForgotPassword = () => {
     </div>
   );
 };
-
 
 export default ForgotPassword;

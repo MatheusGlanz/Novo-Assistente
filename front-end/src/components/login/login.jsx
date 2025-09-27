@@ -16,7 +16,7 @@ const Login = () => {
     setError("");
 
     try {
-      const response = await axios.post("https://assistente-backend-auus.onrender.com/api/login", {
+      const response = await axios.post("https://assistente-backend-auus.onrender.com/api", {
         name,
         email,
         password,
@@ -85,6 +85,5 @@ const Login = () => {
     </div>
   );
 };
-
 
 export default Login;
