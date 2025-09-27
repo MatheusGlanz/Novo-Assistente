@@ -23,7 +23,7 @@ const ResetPassword = () => {
     setMessage("");
 
     try {
-      const res = await axios.post(`http://localhost:3000/api/reset-password/${token}`, { password });
+      const res = await axios.post(`https://assistente-backend-auus.onrender.com/api/reset-password/${token}`, { password });
       setMessage(res.data.message + " Redirecionando para o login...");
       setTimeout(() => {
         navigate("/login");

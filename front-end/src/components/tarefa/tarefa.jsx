@@ -6,7 +6,7 @@ import '../tarefa/tarefa.css';
 
 // Configuração do Axios para enviar o token de autenticação em todas as requisições
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'https://assistente-backend-auus.onrender.com/api',
 });
 
 api.interceptors.request.use(async (config) => {

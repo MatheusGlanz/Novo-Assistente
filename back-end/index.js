@@ -23,13 +23,14 @@ const pool = new Pool({
   port: parseInt(process.env.DB_PORT, 10),
 });
 
-// Configuração do Nodemailer para envio de e-mails
+// Configuração do SendGrid para envio de e-mails
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
   port: parseInt(process.env.EMAIL_PORT, 10),
+  secure: false, // true para 465, false para outras portas como 587
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    user: process.env.EMAIL_USER, // Literalmente a palavra 'apikey'
+    pass: process.env.EMAIL_PASS, // Sua chave de API do SendGrid
   },
 });
 
@@ -104,7 +105,9 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// Rota para solicitar redefinição de senha
+// backend/index.js
+
+// Rota para solicitar redefinição de senha (CORRIGIDA)
 app.post('/api/forgot-password', async (req, res) => {
   const { email } = req.body;
   try {
@@ -112,18 +115,20 @@ app.post('/api/forgot-password', async (req, res) => {
     if (userResult.rows.length > 0) {
       const user = userResult.rows[0];
       const resetToken = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '15m' });
-      const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
+      const resetUrl = `https://assistente-backend-auus.onrender.com/api/reset-password/${resetToken}`;
+
+      // CORREÇÃO: Altere o 'from' para o e-mail que você verificou no SendGrid
       const info = await transporter.sendMail({
-        from: '"Seu App" <noreply@seuapp.com>',
+        from: '"Seu Assistente Pessoal" <glanzdev@gmail.com>',
         to: user.email,
         subject: 'Redefinição de Senha',
         html: `<p>Para redefinir sua senha, clique no link a seguir: <a href="${resetUrl}">${resetUrl}</a></p>`,
       });
-      console.log("Pré-visualização do e-mail: %s", nodemailer.getTestMessageUrl(info));
+      console.log("Pré-visualização do e-mail (se aplicável): %s", nodemailer.getTestMessageUrl(info));
     }
     res.status(200).json({ message: 'Se um usuário com este e-mail existir, um link de redefinição foi enviado.' });
   } catch (error) {
-    console.error('Erro ao enviar e-mail de redefinição:', error);
+    console.error('Erro ao enviar e-mail de redefinição:', error); // O erro detalhado aparecerá aqui
     res.status(500).json({ message: 'Erro no servidor ao processar o pedido.' });
   }
 });

@@ -6,7 +6,7 @@ import './agenda.css'; // Usando o CSS copiado
 
 // Configuração do Axios para enviar o token
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'https://assistente-backend-auus.onrender.com/api',
 });
 
 api.interceptors.request.use(async (config) => {

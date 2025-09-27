@@ -4,7 +4,7 @@ import axios from 'axios';
 import { FaEdit, FaTrash, FaArrowLeft } from 'react-icons/fa';
 import './lista_de_mercado.css'; // Usando o CSS copiado
 
-const api = axios.create({ baseURL: 'http://localhost:3000/api' });
+const api = axios.create({ baseURL: 'https://assistente-backend-auus.onrender.com/api' });
 api.interceptors.request.use(async (config) => {
   const token = localStorage.getItem('authToken');
   if (token) config.headers.Authorization = `Bearer ${token}`;
