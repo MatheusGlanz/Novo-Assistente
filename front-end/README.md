@@ -1,8 +1,3 @@
-Com certeza! Um bom README é essencial para qualquer projeto.
-
-Preparei um README.md completo e profissional para você, cobrindo todas as funcionalidades que construímos, excluindo, como você pediu, as seções de Investimentos e Bíblia. Ele inclui descrição, tecnologias, funcionalidades e um guia completo de instalação.
-
-Você pode copiar e colar este conteúdo diretamente em um arquivo chamado README.md na raiz do seu projeto.
 
 Assistente Pessoal - Dashboard Completo
 📖 Sobre o Projeto
