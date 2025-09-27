@@ -154,3 +154,19 @@
 .task-actions button:hover {
     color: #fff;
 }
+
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+  .tasks-container {
+    /* Muda o layout de grid de 2 colunas para 1 coluna */
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  /* Aplica-se também ao resumo da pág. de Finanças/Investimentos */
+  .finance-summary {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
