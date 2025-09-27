@@ -4,6 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./register.css";
 
+
+// Adicionado para consistência e para facilitar futuras manutenções
+const api = axios.create({
+  baseURL: "https://assistente-backend-auus.onrender.com/api",
+});
+
+
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,7 +28,7 @@ const Register = () => {
       return setError("As senhas não coincidem!");
     }
     try {
-      await axios.post("https://assistente-backend-auus.onrender.com/api", { name, email, password });
+      await axios.post("/register", { name, email, password });
       setSuccess("Cadastro realizado com sucesso! Redirecionando...");
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {

@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom"; // Importe o Link
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./login.css";
 
+// Adicionado para consistência e para facilitar futuras manutenções
+const api = axios.create({
+  baseURL: "https://assistente-backend-auus.onrender.com/api",
+});
+
 const Login = () => {
-  const [name, setName] = useState("");
+  // Removido o estado 'name' que não é usado no formulário de login
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -16,8 +21,9 @@ const Login = () => {
     setError("");
 
     try {
-      const response = await axios.post("https://assistente-backend-auus.onrender.com/api", {
-        name,
+      // CORREÇÃO 1: O caminho agora é '/login'
+      // CORREÇÃO 2: Enviando apenas 'email' e 'password'
+      const response = await api.post("/login", {
         email,
         password,
       });
@@ -70,7 +76,6 @@ const Login = () => {
             <input type="checkbox" />
             Lembre de mim
           </label>
-          {/* AQUI ESTÁ A ATUALIZAÇÃO */}
           <Link to="/forgot-password">Esqueceu sua senha?</Link>
         </div>
         

@@ -9,7 +9,7 @@ import {
     FaSignOutAlt,
     FaShoppingCart 
 } from "react-icons/fa";
-import "./dashboard.css";
+import "./Dashboard.css";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -58,6 +58,5 @@ const Dashboard = () => {
     </div>
   );
 };
-
 
 export default Dashboard;
