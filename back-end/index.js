@@ -21,6 +21,7 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   port: parseInt(process.env.DB_PORT, 10),
+   family: 4,
 });
 
 // Configuração do SendGrid para envio de e-mails
