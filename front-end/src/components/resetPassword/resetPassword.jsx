@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { FaLock } from "react-icons/fa";
-import "./ResetPassword.css";
+import "./resetPassword.css";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
@@ -73,5 +73,6 @@ const ResetPassword = () => {
     </div>
   );
 };
+
 
 export default ResetPassword;
