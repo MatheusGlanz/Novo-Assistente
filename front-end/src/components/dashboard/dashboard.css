@@ -113,7 +113,7 @@
   .dashboard-sidebar {
     /* Por enquanto, vamos esconder o menu em telas pequenas.
        No futuro, um botão pode controlar a visibilidade dele. */
-    display: none; 
+    display: flex; 
   }
 
   .dashboard-content {
