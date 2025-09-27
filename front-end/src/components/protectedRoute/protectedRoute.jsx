@@ -1,16 +1,20 @@
-// src/components/ProtectedRoute.jsx
-
 import { Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; // 1. Importe o useAuth
 
 const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem('authToken');
+  const { token, isLoading } = useAuth(); // 2. Pegue o token e o estado de carregamento
 
+  // 3. Se estiver carregando, não mostre nada ainda (ou um spinner de loading)
+  if (isLoading) {
+    return <div>Carregando...</div>; // Ou retorne null para uma tela branca
+  }
+
+  // 4. Após carregar, se não houver token, redirecione para o login
   if (!token) {
-    // Se não houver token, redireciona para a página de login
     return <Navigate to="/login" />;
   }
 
-  // Se houver token, renderiza o componente filho (a página protegida)
+  // 5. Se houver token, mostre a página protegida
   return children;
 };
 
