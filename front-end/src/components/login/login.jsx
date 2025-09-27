@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom"; // Importe o Link
 import axios from "axios";
-import "./Login.css";
+import "./login.css";
 
 const Login = () => {
   const [name, setName] = useState("");
@@ -85,5 +85,6 @@ const Login = () => {
     </div>
   );
 };
+
 
 export default Login;
