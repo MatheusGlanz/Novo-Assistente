@@ -21,7 +21,10 @@ const Register = () => {
       return setError("As senhas não coincidem!");
     }
     try {
-      await axios.post("https://assistente-backend-auus.onrender.com/api/register", { name, email, password });
+      const api = axios.create({
+      baseURL: "https://assistente-backend-auus.onrender.com/api"
+      });
+      await api.post("/register", { name, email, password });
       setSuccess("Cadastro realizado com sucesso! Redirecionando...");
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
