@@ -16,12 +16,7 @@ app.use(express.json());
 
 // Conexão com o Banco de Dados
 const pool = new Pool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
-  port: parseInt(process.env.DB_PORT, 10),
-   family: 4,
+  connectionString: process.env.DATABASE_URL,
 });
 
 // Configuração do SendGrid para envio de e-mails
