@@ -21,8 +21,7 @@ const Login = () => {
     setError("");
 
     try {
-      // CORREÇÃO 1: O caminho agora é '/login'
-      // CORREÇÃO 2: Enviando apenas 'email' e 'password'
+   
       const response = await api.post("/login", {
         email,
         password,
