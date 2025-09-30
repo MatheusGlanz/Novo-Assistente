@@ -1,10 +1,13 @@
-// src/components/ForgotPassword/ForgotPassword.jsx
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { FaEnvelope } from "react-icons/fa";
+import { FaEnvelope, FaArrowLeft } from "react-icons/fa";
 import "./forgotPassword.css";
+
+// CORREÇÃO 1: Adicionando a configuração do axios para apontar para o backend no Render
+const api = axios.create({
+  baseURL: "https://assistente-backend-auus.onrender.com/api",
+});
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -16,7 +19,8 @@ const ForgotPassword = () => {
     setMessage("");
     setError("");
     try {
-      const res = await axios.post("https://assistente-backend-auus.onrender.com/api", { email });
+      // CORREÇÃO 2: Usando a instância 'api' e o caminho correto
+      const res = await api.post("/forgot-password", { email });
       setMessage(res.data.message);
     } catch (err) {
       setError("Ocorreu um erro. Tente novamente.");
@@ -26,8 +30,8 @@ const ForgotPassword = () => {
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>
-        <h1>Esqueceu a Senha</h1>
-        <p style={{textAlign: 'center', marginBottom: '20px'}}>
+        <h1>Recuperar Senha</h1>
+        <p style={{textAlign: 'center', marginBottom: '20px', color: '#cbd5e1', textShadow: 'none'}}>
           Digite seu e-mail e enviaremos um link para redefinir sua senha.
         </p>
 
@@ -45,11 +49,13 @@ const ForgotPassword = () => {
           <FaEnvelope className="icon" />
         </div>
 
-        <button type="submit">Enviar Link</button>
+        <button type="submit">Enviar Link de Recuperação</button>
 
         <div className="signup-link">
           <p>
-            Lembrou a senha? <Link to="/login">Voltar para o Login</Link>
+            <Link to="/login">
+                <FaArrowLeft style={{marginRight: '5px'}} /> Voltar para o Login
+            </Link>
           </p>
         </div>
       </form>
