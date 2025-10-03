@@ -1,74 +1,24 @@
 /* src/components/DashboardSections/Tarefas.css */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-@media (max-width: 900px) {
-    .tasks-container {
-        grid-template-columns: 1fr;
-        /* empilha as colunas em dispositivos menores */
-        gap: 20px;
-    }
-
-    .task-item-header h4 {
-        font-size: 16px;
-    }
-
-    .tasks-filter input {
-        font-size: 15px;
-    }
-
-    .task-form input,
-    .task-form textarea {
-        font-size: 15px;
-    }
-}
-
-@media (max-width: 520px) {
-    .back-to-dashboard-link {
-        margin-bottom: 16px;
-        padding-bottom: 14px;
-    }
-
-    .tasks-form-section h3,
-    .tasks-list-section h3 {
-        font-size: 20px;
-    }
-
-    .task-form label {
-        font-size: 13px;
-    }
-
-    .task-item-header h4 {
-        font-size: 15px;
-    }
-
-    .task-item {
-        padding: 16px;
-    }
-}
 
 .back-to-dashboard-link {
-    margin-bottom: 25px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .back-to-dashboard-link a {
-    color: #cbd5e1;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: bold;
-    transition: color 0.3s;
+  color: #cbd5e1;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: bold;
+  transition: color 0.3s;
 }
 
 .back-to-dashboard-link a:hover {
-    color: #fff;
-
+  color: #fff;
+  
 }
 
 .tasks-container {
@@ -77,8 +27,7 @@
     gap: 40px;
 }
 
-.tasks-form-section h3,
-.tasks-list-section h3 {
+.tasks-form-section h3, .tasks-list-section h3 {
     margin-top: 0;
     margin-bottom: 20px;
     font-size: 22px;
@@ -101,12 +50,9 @@
     color: #cbd5e1;
 }
 
-.task-form input,
-.task-form textarea {
-    background-color: rgba(0, 0, 0, 0.5);
-    /* ALTERADO: de 0.8 para 0.5 */
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    /* ALTERADO: de 0.5 para 0.3 */
+.task-form input, .task-form textarea {
+    background-color: rgba(0, 0, 0, 0.5); /* ALTERADO: de 0.8 para 0.5 */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* ALTERADO: de 0.5 para 0.3 */
     border-radius: 6px;
     padding: 12px;
     color: #fff;
@@ -115,21 +61,17 @@
     font-family: inherit;
     color-scheme: dark;
 }
-
 .task-form textarea {
     resize: vertical;
     min-height: 80px;
 }
-
 .task-form .date-time-group {
     display: flex;
     gap: 15px;
 }
-
-.date-time-group>div {
+.date-time-group > div {
     flex: 1;
 }
-
 .task-form button {
     padding: 12px;
     font-size: 16px;
@@ -151,10 +93,8 @@
 }
 
 .tasks-filter input {
-    background-color: rgba(0, 0, 0, 0.5);
-    /* ALTERADO: de 0.8 para 0.5 */
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    /* ALTERADO: de 0.5 para 0.3 */
+    background-color: rgba(0, 0, 0, 0.5); /* ALTERADO: de 0.8 para 0.5 */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* ALTERADO: de 0.5 para 0.3 */
     border-radius: 6px;
     padding: 10px;
     color: #fff;
@@ -175,10 +115,8 @@
 }
 
 .task-item {
-    background-color: rgba(0, 0, 0, 0.5);
-    /* ALTERADO: de 0.8 para 0.5 */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    /* ALTERADO: de 0.4 para 0.2 */
+    background-color: rgba(0, 0, 0, 0.5); /* ALTERADO: de 0.8 para 0.5 */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* ALTERADO: de 0.4 para 0.2 */
     border-radius: 8px;
     padding: 20px;
 }
@@ -188,12 +126,10 @@
     justify-content: space-between;
     align-items: flex-start;
 }
-
 .task-item-header h4 {
     margin: 0;
     font-size: 18px;
 }
-
 .task-item-body p {
     margin: 10px 0;
     color: #cbd5e1;
@@ -207,7 +143,6 @@
     font-size: 14px;
     color: #a0aec0;
 }
-
 .task-actions button {
     background: none;
     border: none;
@@ -217,7 +152,6 @@
     margin-left: 10px;
     padding: 5px;
 }
-
 .task-actions button:hover {
     color: #fff;
 }
