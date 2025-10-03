@@ -7,6 +7,39 @@
   color: #fff;
 }
 
+@media (max-width: 1200px) {
+  html {
+    font-size: 15px;
+  }
+
+  .App {
+    padding: 1,5rem;
+  }
+}
+
+
+@media (max-width: 900px) {
+  html {
+    font-size: 14px;
+  }
+
+  .App {
+    padding: 1,5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 13px;
+  }
+
+  .App {
+    padding: 1,5rem;
+  }
+}
+
+
+
 .App {
   display: flex;
   justify-content: center;
@@ -15,4 +48,5 @@
   background: url("assets/bg.webp") no-repeat;
   background-size: cover;
   background-position: center;
+  padding: 1.5rem;
 }

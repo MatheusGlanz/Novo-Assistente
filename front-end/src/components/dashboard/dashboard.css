@@ -1,22 +1,76 @@
 /* src/components/Dashboard/Dashboard.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+.dashboard-container {
+  flex-direction: column;
+  height: auto;
+  min-height: 100vh;
+}
+
+.dashboard-sidebar {
+  width: 100%;
+
+  border-right: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px;
+}
+
+.sidebar-header {
+  font-size: 20px;
+}
+
+.sidebar-menu li a {
+  padding: 12px 8px;
+  font-size: 14px;
+}
+
+.content-header h1 {
+  font-size: 24px;
+}
+
+.dashboard-content {
+  padding: 20px;
+}
+
+.dashboard-sidebar {
+  width: auto;
+  height: auto;
+  border-right: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-content {
+  padding: 20px;
+}
 
 .dashboard-container {
   display: flex;
   width: 100vw;
   height: 100vh;
-  background-image: url("assets/bg.webp"); /* Um fundo escuro sólido para a área do dashboard */
-  
+  background-image: url("assets/bg.webp");
+
+  /* Um fundo escuro sólido para a área do dashboard */
+
 }
 
 /* --- Sidebar (Menu Lateral) --- */
 .dashboard-sidebar {
+  align-items: center;
   width: 240px;
-  background: rgba(30, 41, 59, 0.5); /* Semi-transparente, estilo glassmorphism */
+  background: rgba(30, 41, 59, 0.5);
+  /* Semi-transparente, estilo glassmorphism */
   backdrop-filter: blur(10px);
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   padding: 20px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   color: #fff;
 }
 
@@ -29,15 +83,17 @@
 
 .sidebar-menu {
   list-style: none;
-  padding: 0;
-  margin: 0;
-  flex-grow: 1; /* Ocupa o espaço disponível */
+  padding: 2rem;
+  margin: 10px;
+  flex-grow: 1;
+  /* Ocupa o espaço disponível */
 }
 
 .sidebar-menu li a {
   display: flex;
   align-items: center;
-  gap: 15px; /* Espaço entre o ícone e o texto */
+  gap: 15px;
+  /* Espaço entre o ícone e o texto */
   padding: 15px 10px;
   color: #cbd5e1;
   text-decoration: none;
@@ -79,9 +135,11 @@
 
 /* --- Área de Conteúdo Principal --- */
 .dashboard-content {
-  flex-grow: 1; /* Ocupa o restante do espaço */
+  flex-grow: 1;
+  /* Ocupa o restante do espaço */
   padding: 40px;
-  overflow-y: auto; /* Adiciona scroll se o conteúdo for grande */
+  overflow-y: auto;
+  /* Adiciona scroll se o conteúdo for grande */
 }
 
 .content-header {
@@ -101,26 +159,4 @@
   border-radius: 10px;
   background: rgba(30, 41, 59, 0.5);
   backdrop-filter: blur(5px);
-}
-
-
-/* --- Responsividade --- */
-@media (max-width: 768px) {
-  .dashboard-container {
-    flex-direction: column;
-  }
-
-  .dashboard-sidebar {
-    /* Por enquanto, vamos esconder o menu em telas pequenas.
-       No futuro, um botão pode controlar a visibilidade dele. */
-    display: flex; 
-  }
-
-  .dashboard-content {
-    padding: 20px;
-  }
-
-  .content-header h1 {
-    font-size: 22px;
-  }
 }
