@@ -1,162 +1,182 @@
+
 /* src/components/Dashboard/Dashboard.css */
+
+/* --- CSS Custom Properties (Variáveis) ---
+  Definir valores comuns aqui facilita a manutenção e a consistência do tema.
+*/
+:root {
+  --sidebar-width: 250px;
+  --primary-text-color: #e2e8f0;
+  --secondary-text-color: #94a3b8;
+  --background-blur-color: rgba(30, 41, 59, 0.6);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --hover-bg-color: rgba(255, 255, 255, 0.05);
+  --active-link-bg: #4f46e5;
+  --logout-bg-color: #ef4444;
+  --logout-hover-bg-color: #dc2626;
+  --font-family: 'Inter', sans-serif; /* Uma fonte moderna e limpa */
+}
+
+/* --- Reset e Estilos Globais --- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-
-
-.dashboard-container {
-  flex-direction: column;
-  height: auto;
-  min-height: 100vh;
+body,
+html {
+  font-family: var(--font-family);
+  height: 100%;
+  overflow: hidden; /* Evita a barra de rolagem no corpo da página */
+  color: var(--primary-text-color);
 }
 
-.dashboard-sidebar {
-  width: 100%;
-
-  border-right: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 16px;
-}
-
-.sidebar-header {
-  font-size: 20px;
-}
-
-.sidebar-menu li a {
-  padding: 12px 8px;
-  font-size: 14px;
-}
-
-.content-header h1 {
-  font-size: 24px;
-}
-
-.dashboard-content {
-  padding: 20px;
-}
-
-.dashboard-sidebar {
-  width: auto;
-  height: auto;
-  border-right: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.dashboard-content {
-  padding: 20px;
-}
-
+/* --- Layout Principal do Dashboard --- */
 .dashboard-container {
   display: flex;
-  width: 100vw;
+  flex-direction: column; /* Padrão para mobile */
   height: 100vh;
-  background-image: url("assets/bg.webp");
-
-  /* Um fundo escuro sólido para a área do dashboard */
-
+  width: 100vw;
+  background-image: url("bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 /* --- Sidebar (Menu Lateral) --- */
 .dashboard-sidebar {
-  align-items: center;
-  width: 240px;
-  background: rgba(30, 41, 59, 0.5);
-  /* Semi-transparente, estilo glassmorphism */
-  backdrop-filter: blur(10px);
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 20px;
+  background: var(--background-blur-color);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* Suporte para Safari */
+  border-bottom: 1px solid var(--border-color); /* Borda para mobile */
+  padding: 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  color: #fff;
+  transition: width 0.3s ease;
 }
 
 .sidebar-header {
   text-align: center;
-  margin-bottom: 40px;
-  font-size: 24px;
-  font-weight: bold;
+  margin-bottom: 2.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: none; /* Escondido em mobile, visível em desktop */
 }
 
 .sidebar-menu {
   list-style: none;
-  padding: 2rem;
-  margin: 10px;
-  flex-grow: 1;
-  /* Ocupa o espaço disponível */
+  width: 100%;
 }
 
 .sidebar-menu li a {
   display: flex;
   align-items: center;
-  gap: 15px;
-  /* Espaço entre o ícone e o texto */
-  padding: 15px 10px;
-  color: #cbd5e1;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  color: var(--secondary-text-color);
   text-decoration: none;
   border-radius: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 0.5rem;
   transition: background-color 0.3s, color 0.3s;
+  font-weight: 500;
 }
 
 .sidebar-menu li a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  background-color: var(--hover-bg-color);
+  color: var(--primary-text-color);
 }
 
-/* Estilo para o link ativo (pode ser implementado com NavLink) */
 .sidebar-menu li a.active {
-  background-color: #4f46e5;
+  background-color: var(--active-link-bg);
   color: #fff;
+  font-weight: 600;
 }
 
 .logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
   width: 100%;
-  padding: 15px;
-  background-color: #ef4444;
+  padding: 0.9rem;
+  background-color: var(--logout-bg-color);
   color: #fff;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  text-shadow: none;
+  font-size: 1rem;
+  font-weight: 600;
   transition: background-color 0.3s;
-  margin-top: 20px;
+  margin-top: auto; /* Empurra o botão para o final do container flex */
 }
 
 .logout-button:hover {
-  background-color: #dc2626;
+  background-color: var(--logout-hover-bg-color);
 }
-
 
 /* --- Área de Conteúdo Principal --- */
 .dashboard-content {
   flex-grow: 1;
-  /* Ocupa o restante do espaço */
-  padding: 40px;
-  overflow-y: auto;
-  /* Adiciona scroll se o conteúdo for grande */
+  padding: 1.5rem;
+  overflow-y: auto; /* Adiciona scroll apenas se o conteúdo for grande */
 }
 
 .content-header {
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .content-header h1 {
-  font-size: 28px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
 }
 
-/* Estilos para os componentes de conteúdo */
+.content-header p {
+  color: var(--secondary-text-color);
+  font-size: 1rem;
+}
+
+/* Estilo de exemplo para o conteúdo dentro do <Outlet> */
 .page-content {
-  background: rgba(30, 41, 59, 0.3);
-  padding: 30px;
-  border-radius: 10px;
-  background: rgba(30, 41, 59, 0.5);
+  background: var(--background-blur-color);
   backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  padding: 2rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+/* --- Media Queries para Responsividade (Desktop) --- */
+@media (min-width: 768px) {
+  .dashboard-container {
+    flex-direction: row; /* Layout lado a lado em telas maiores */
+  }
+
+  .dashboard-sidebar {
+    width: var(--sidebar-width);
+    height: 100vh;
+    border-right: 1px solid var(--border-color);
+    border-bottom: none; /* Remove a borda inferior */
+    padding: 1.5rem;
+    justify-content: space-between;
+  }
+
+  .sidebar-header {
+    display: block; /* Mostra o header em desktop */
+  }
+
+  .sidebar-menu {
+    flex-grow: 1; /* Permite que o menu ocupe o espaço disponível */
+  }
+
+  .dashboard-content {
+    padding: 2.5rem;
+  }
+
+  .content-header h1 {
+    font-size: 2.25rem;
+  }
 }
