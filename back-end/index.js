@@ -4,11 +4,13 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { Pool } = require('pg');
 const nodemailer = require('nodemailer');
+const webPush = require('web-push');
+const cron = require('node-cron');
 require('dotenv').config();
 
 // Inicialização do App
 const app = express();
-const PORT = process.env.PORT || 3000; // Alterei a porta para 4000 para evitar conflito com o frontend
+const PORT = process.env.PORT || 3000; 
 
 // Middlewares
 app.use(cors());
@@ -495,6 +497,105 @@ app.delete('/api/grocery/:id', verifyToken, async (req, res) => {
     console.error('Erro ao deletar item:', error);
     res.status(500).json({ message: 'Erro ao deletar item.' });
   }
+});
+
+// 3. Configura o web-push com as chaves VAPID
+webpush.setVapidDetails(
+  'mailto:seu.email.verificado@exemplo.com', // Use o mesmo e-mail verificado no SendGrid
+  process.env.VAPID_PUBLIC_KEY,
+  process.env.VAPID_PRIVATE_KEY
+);
+
+// ... (seu middleware verifyToken e todas as rotas de API existentes)
+
+
+// --- ROTAS DA API DE NOTIFICAÇÕES (PROTEGIDAS) ---
+
+// Rota para salvar uma nova inscrição de notificação
+app.post('/api/subscribe', verifyToken, async (req, res) => {
+    const userId = req.user.userId;
+    const subscription = req.body;
+
+    try {
+        // Deleta inscrições antigas para o mesmo usuário para evitar duplicatas
+        await pool.query('DELETE FROM subscriptions WHERE user_id = $1', [userId]);
+
+        // Insere a nova inscrição
+        await pool.query(
+            'INSERT INTO subscriptions (user_id, subscription_object) VALUES ($1, $2)',
+            [userId, subscription]
+        );
+        res.status(201).json({ message: 'Inscrição salva com sucesso.' });
+    } catch (error) {
+        console.error('Erro ao salvar inscrição:', error);
+        res.status(500).json({ message: 'Erro ao salvar inscrição.' });
+    }
+});
+
+// Enviar uma notificação de teste (para depuração)
+app.post('/api/test-notification', verifyToken, (req, res) => {
+    const payload = JSON.stringify({
+        title: 'Notificação de Teste! 🎉',
+        body: 'Se você recebeu isso, está tudo funcionando.',
+    });
+    // Lógica de envio (será usada pelo cron job)
+    // (Esta parte é apenas para teste e pode ser removida depois)
+});
+
+
+// 4. LÓGICA AGENDADA PARA ENVIAR NOTIFICAÇÕES
+
+// Roda a cada minuto ('* * * * *')
+cron.schedule('* * * * *', async () => {
+    console.log('Verificando tarefas e compromissos para notificar...');
+
+    const now = new Date();
+    // Notificar 15 minutos antes
+    const notificationTime = new Date(now.getTime() + 15 * 60000); 
+
+    try {
+        // Busca tarefas e compromissos que vencem nos próximos 15 minutos
+        const tasksToNotify = await pool.query(
+            "SELECT * FROM tasks WHERE due_date BETWEEN $1 AND $2 AND status = 'pendente'",
+            [now, notificationTime]
+        );
+
+        const appointmentsToNotify = await pool.query(
+            "SELECT * FROM appointments WHERE appointment_date BETWEEN $1 AND $2",
+            [now, notificationTime]
+        );
+
+        const allNotifications = [
+            ...tasksToNotify.rows.map(t => ({ userId: t.user_id, title: 'Tarefa Próxima!', body: t.description })),
+            ...appointmentsToNotify.rows.map(a => ({ userId: a.user_id, title: 'Compromisso Agendado!', body: a.commitment }))
+        ];
+
+        if (allNotifications.length === 0) {
+            console.log('Nenhuma notificação para enviar neste minuto.');
+            return;
+        }
+
+        for (const notification of allNotifications) {
+            const subsResult = await pool.query('SELECT subscription_object FROM subscriptions WHERE user_id = $1', [notification.userId]);
+            
+            if (subsResult.rows.length > 0) {
+                const subscription = subsResult.rows[0].subscription_object;
+                const payload = JSON.stringify({ title: notification.title, body: notification.body });
+
+                webpush.sendNotification(subscription, payload).catch(error => {
+                    console.error('Erro ao enviar notificação:', error);
+                    // Se a inscrição for inválida (ex: 410 Gone), remova-a do banco
+                    if (error.statusCode === 410) {
+                        pool.query('DELETE FROM subscriptions WHERE user_id = $1', [notification.userId]);
+                    }
+                });
+            }
+        }
+        console.log(`${allNotifications.length} notificações enviadas.`);
+
+    } catch (error) {
+        console.error('Erro no job de notificação:', error);
+    }
 });
 
 

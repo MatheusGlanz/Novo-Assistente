@@ -1,4 +1,5 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import NotificationManager from "../notificationManager";
 // Ícones atualizados para incluir todas as seções
 import {
   FaTasks,
@@ -26,10 +27,11 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
+      <NotificationManager /> 
       {/* Barra de Navegação Lateral */}
       <nav className="dashboard-sidebar">
         <div className="sidebar-header">
-          <h3>Menu</h3>
+          <h3>Meu Painel</h3>
         </div>
         {/* Lista de menu completa e corrigida */}
         <ul className="sidebar-menu">
@@ -57,6 +59,5 @@ const Dashboard = () => {
     </div>
   );
 };
-
 
 export default Dashboard;
