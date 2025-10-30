@@ -42,52 +42,55 @@ const Login = () => {
     }
   };
 
-  return (
-    <div className="container">
-      <form onSubmit={handleSubmit}>
-        <h1>Acesse o sistema</h1>
+return (
+  <form onSubmit={handleSubmit}>
+    <h1>Acesse o sistema</h1>
 
-        {error && <p style={{ color: "red", textAlign: "center", margin: "10px 0" }}>{error}</p>}
+    {error && (
+      <p style={{ color: "red", textAlign: "center", margin: "10px 0" }}>
+        {error}
+      </p>
+    )}
 
-        <div className="input-field">
-          <input
-            type="email"
-            placeholder="E-mail"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <FaUser className="icon" />
-        </div>
-        <div className="input-field">
-          <input
-            type="password"
-            placeholder="Senha"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <FaLock className="icon" />
-        </div>
-
-        <div className="recall-forget">
-          <label>
-            <input type="checkbox" />
-            Lembre de mim
-          </label>
-          <Link to="/forgot-password">Esqueceu sua senha?</Link>
-        </div>
-        
-        <button type="submit">Login</button>
-
-        <div className="signup-link">
-          <p>
-            Não tem uma conta? <Link to="/register">Registar</Link>
-          </p>
-        </div>
-      </form>
+    <div className="input-field">
+      <input
+        type="email"
+        placeholder="E-mail"
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <FaUser className="icon" />
     </div>
-  );
-};
+
+    <div className="input-field">
+      <input
+        type="password"
+        placeholder="Senha"
+        required
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <FaLock className="icon" />
+    </div>
+
+    <div className="recall-forget">
+      <label>
+        <input type="checkbox" />
+        Lembre de mim
+      </label>
+      <Link to="/forgot-password">Esqueceu sua senha?</Link>
+    </div>
+
+    <button type="submit">Login</button>
+
+    <div className="signup-link">
+      <p>
+        Não tem uma conta? <Link to="/register">Registrar</Link>
+      </p>
+    </div>
+  </form>
+);
+}
 
 export default Login;

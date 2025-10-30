@@ -1,41 +1,85 @@
+/* --- RESET GLOBAL --- */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
-    }
-    @media (max-width: 1920px) {
-        html{
-            font-size: 95%;
-            background: black;
-        
-            
-            
-        } 
-        .App {
-            padding: 1.5rem;
-        }
-    }
-    @media (max-width: 600px) {
-        html{
-            font-size: 80%;
-        } 
-        .App {
-          padding: 10rem;
-        }
-    }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
 
-    .App {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background-size: cover;
-        background-position: center;
-        padding: 5rem;
-        background-image: url("assets/bg.webp");
-         
-        
-    }
-        
+/* --- CONFIGURAÇÃO BASE --- */
+html, body {
+  height: 100%;
+  width: 100%;
+  background: black;
+  overflow-x: hidden;
+}
+
+/* --- CONTAINER PRINCIPAL --- */
+.App {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  padding: 4rem;
+  background: black;
+  overflow: hidden;
+  perspective: 1000px;
+}
+
+/* --- CONTEÚDO DO APP (FICA ACIMA DA ANIMAÇÃO) --- */
+.app-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/* --- ANIMAÇÃO DAS PARTÍCULAS --- */
+.wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  animation: rotate 14s infinite linear;
+  z-index: 0;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotateY(360deg) rotateX(360deg);
+  }
+}
+
+.c {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  opacity: 0;
+  transform-origin: 2 2 2;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (min-width: 1600px) {
+  html { font-size: 105%; }
+  .App { padding: 5rem; }
+}
+
+@media (max-width: 1024px) {
+  html { font-size: 95%; }
+  .App { padding: 2rem; flex-direction: column; text-align: center; }
+}
+
+@media (max-width: 600px) {
+  html { font-size: 85%; }
+  .App { padding: 1.5rem; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+}
+
+@media (max-width: 400px) {
+  html { font-size: 80%; }
+  .App { padding: 1rem; }
+}
