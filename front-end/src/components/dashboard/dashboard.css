@@ -1,182 +1,264 @@
-
-/* src/components/Dashboard/Dashboard.css */
-
-/* --- CSS Custom Properties (Variáveis) ---
-  Definir valores comuns aqui facilita a manutenção e a consistência do tema.
-*/
+/* --- Variáveis de Cor e Configuração Global --- */
 :root {
-  --sidebar-width: 250px;
-  --primary-text-color: #e2e8f0;
-  --secondary-text-color: #94a3b8;
-  --background-blur-color: rgba(30, 41, 59, 0.6);
-  --border-color: rgba(255, 255, 255, 0.1);
-  --hover-bg-color: rgba(255, 255, 255, 0.05);
-  --active-link-bg: #4f46e5;
-  --logout-bg-color: #ef4444;
-  --logout-hover-bg-color: #dc2626;
-  --font-family: 'Inter', sans-serif; /* Uma fonte moderna e limpa */
+  --primary-red: #E53E3E; /* Vermelho principal */
+  --primary-red-dark: #C53030; /* Vermelho para hover */
+  
+  --text-light: #f0f0f0; /* Texto claro (para fundos escuros) */
+  --text-dark: #2d2d2d; /* Texto escuro (para fundos claros) */
+
+  /* Cores translúcidas */
+  --bg-sidebar: rgba(0, 0, 0, 0.4); /* Preto translúcido para a sidebar/header */
+  --bg-link-hover: rgba(255, 255, 255, 0.2); /* Branco translúcido para hover de link */
+  --border-light: rgba(255, 255, 255, 0.2); /* Borda clara translúcida */
+
+  /* Cores para a animação */
+  --particle-color-1: rgba(255, 255, 255, 0.1); /* Branco translúcido */
+  --particle-color-2: rgba(100, 100, 100, 0.1); /* Cinza translúcido */
 }
 
-/* --- Reset e Estilos Globais --- */
-* {
+/* --- Estilos de Base (Mobile-First) --- */
+body, html {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  width: 100%;
+  min-height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Fundo escuro (preto/cinza) - servirá como base para a animação */
+  background-color: #1a1a1a; 
+  background-image: linear-gradient(135deg, #2b2b2b 0%, #1a1a1a 100%);
+  color: var(--text-light);
+  line-height: 1.6;
+  
+  /* Para a animação de fundo */
+  
+  position: relative; /* Contexto para as partículas absolutas */
 }
 
-body,
-html {
-  font-family: var(--font-family);
+/* --- Animação de Fundo (Partículas) --- */
+.dashboard-container::before,
+.dashboard-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
-  overflow: hidden; /* Evita a barra de rolagem no corpo da página */
-  color: var(--primary-text-color);
+  background: radial-gradient(circle at 20% 80%, var(--particle-color-1) 0%, transparent 40%),
+              radial-gradient(circle at 80% 20%, var(--particle-color-2) 0%, transparent 40%);
+  background-size: 80% 80%, 70% 70%; /* Tamanho das "bolhas" */
+  animation: moveBackground 30s linear infinite alternate; /* Animação */
+  z-index: -1; /* Fica abaixo do conteúdo */
+  pointer-events: none; /* Não interfere com cliques */
 }
 
-/* --- Layout Principal do Dashboard --- */
+.dashboard-container::after {
+    animation-delay: -15s; /* Animação defasada para parecer mais orgânico */
+    background: radial-gradient(circle at 70% 30%, var(--particle-color-2) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, var(--particle-color-1) 0%, transparent 50%);
+    background-size: 90% 90%, 60% 60%;
+}
+
+
+@keyframes moveBackground {
+  0% {
+    transform: translate(0, 0) scale(1);
+    background-position: 0% 0%, 100% 100%;
+  }
+  100% {
+    transform: translate(20px, 30px) scale(1.1);
+    background-position: 100% 100%, 0% 0%;
+  }
+}
+
+/* --- Container principal (SEMPRE em coluna) --- */
 .dashboard-container {
   display: flex;
-  flex-direction: column; /* Padrão para mobile */
-  height: 100vh;
-  width: 100vw;
-  background-image: url("bg.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-}
-
-/* --- Sidebar (Menu Lateral) --- */
-.dashboard-sidebar {
-  background: var(--background-blur-color);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px); /* Suporte para Safari */
-  border-bottom: 1px solid var(--border-color); /* Borda para mobile */
-  padding: 1rem;
-  display: flex;
   flex-direction: column;
-  transition: width 0.3s ease;
+  height: 100vh;
+  width: 100%;
+  position: relative; /* Garante que o z-index funcione para o conteúdo */
+  z-index: 1; /* Mantém o conteúdo acima da animação */
+  overflow: hidden;
 }
 
-.sidebar-header {
+/* --- Barra Lateral (Agora atua como Header) --- */
+.dashboard-sidebar {
+  background: var(--bg-sidebar);
+  /* Efeito "vidro fosco" */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  
+  padding: 20px;
+  border-bottom: 1px solid var(--border-light);
+  width: 100%;
+  box-sizing: border-box; /* Garante que o padding não estoure a largura */
+}
+
+.sidebar-header h3 {
+  margin: 0 0 20px 0;
   text-align: center;
-  margin-bottom: 2.5rem;
+  color: var(--text-light);
   font-size: 1.5rem;
-  font-weight: 700;
-  display: none; /* Escondido em mobile, visível em desktop */
 }
 
 .sidebar-menu {
   list-style: none;
-  width: 100%;
+  padding: 0;
+  margin: 0;
+  
+  /* No celular, os itens quebram a linha e se centralizam */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.sidebar-menu li {
+  flex-grow: 1; /* Faz os botões ocuparem espaço similar no mobile */
 }
 
 .sidebar-menu li a {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.9rem 1rem;
-  color: var(--secondary-text-color);
+  gap: 12px;
+  padding: 12px 15px;
   text-decoration: none;
-  border-radius: 8px;
-  margin-bottom: 0.5rem;
-  transition: background-color 0.3s, color 0.3s;
+  color: var(--text-light);
   font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  justify-content: center; /* Centraliza no celular */
 }
 
 .sidebar-menu li a:hover {
-  background-color: var(--hover-bg-color);
-  color: var(--primary-text-color);
+  background-color: var(--bg-link-hover);
 }
 
-.sidebar-menu li a.active {
-  background-color: var(--active-link-bg);
-  color: #fff;
-  font-weight: 600;
+/* Estiliza os ícones do React-Icons */
+.sidebar-menu li a svg {
+  font-size: 1.2rem;
+  min-width: 20px; /* Garante alinhamento */
 }
 
+/* --- Botão de Logout (Vermelho) --- */
 .logout-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
-  width: 100%;
-  padding: 0.9rem;
-  background-color: var(--logout-bg-color);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  gap: 10px;
+  
+  width: 100%; /* Largura total no mobile */
+  padding: 12px;
+  margin-top: 20px;
+  
   font-size: 1rem;
-  font-weight: 600;
-  transition: background-color 0.3s;
-  margin-top: auto; /* Empurra o botão para o final do container flex */
+  font-weight: bold;
+  color: white;
+  
+  background-color: var(--primary-red);
+  border: none;
+  border-radius: 88px; /* Mais arredondado */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .logout-button:hover {
-  background-color: var(--logout-hover-bg-color);
+  background-color: var(--primary-red-dark);
 }
 
 /* --- Área de Conteúdo Principal --- */
 .dashboard-content {
-  flex-grow: 1;
-  padding: 1.5rem;
-  overflow-y: auto; /* Adiciona scroll apenas se o conteúdo for grande */
+  /* REMOVEMOS A COR DE FUNDO BRANCA. O fundo animado do body aparecerá agora. */
+  background: transparent; /* Garante que o fundo seja transparente */
+  color: var(--text-light); /* Texto claro para contrastar com o fundo escuro/animado */
+  
+  padding: 20px;
+  flex-grow: 1; /* Ocupa o restante do espaço vertical */
+  width: 100%;
+  box-sizing: border-box; /* Garante que o padding não estoure a largura */
+
+  /* Para que o texto no conteúdo seja legível sobre a animação, 
+     damos um pequeno "blur" no fundo por trás do texto, ou um overlay sutil */
+  position: relative; /* Contexto para o pseudo-elemento */
+  z-index: 0; /* Garante que o conteúdo e seu overlay fiquem acima do background animado */
+  overflow-y: auto; /* Permite rolagem vertical se o conteúdo for maior que a área */
+}
+
+/* Overlay sutil para melhorar a legibilidade do texto no conteúdo principal */
+.dashboard-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1); /* Um preto muito translúcido */
+  backdrop-filter: blur(2px); /* Um blur sutil por trás do conteúdo */
+  -webkit-backdrop-filter: blur(2px);
+  border-radius: 8px; /* Arredonda as bordas do conteúdo */
+  z-index: -1; /* Fica por trás do conteúdo, mas acima da animação principal */
 }
 
 .content-header {
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-light); /* Borda mais clara */
+  padding-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .content-header h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 0.25rem;
+  margin-top: 0;
+  margin-bottom: 5px;
+  color: var(--text-light); /* Títulos claros */
 }
 
 .content-header p {
-  color: var(--secondary-text-color);
+  margin: 0;
   font-size: 1rem;
+  color: var(--text-light); /* Parágrafos claros */
 }
 
-/* Estilo de exemplo para o conteúdo dentro do <Outlet> */
-.page-content {
-  background: var(--background-blur-color);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  padding: 2rem;
-  border-radius: 10px;
-  border: 1px solid var(--border-color);
-}
-
-/* --- Media Queries para Responsividade (Desktop) --- */
+/* --- Layout Desktop (Responsividade) --- */
+/* Em telas maiores, transforma a sidebar (header) em uma navbar horizontal */
 @media (min-width: 768px) {
-  .dashboard-container {
-    flex-direction: row; /* Layout lado a lado em telas maiores */
-  }
-
+  
   .dashboard-sidebar {
-    width: var(--sidebar-width);
-    height: 100vh;
-    border-right: 1px solid var(--border-color);
-    border-bottom: none; /* Remove a borda inferior */
-    padding: 1.5rem;
+    /* Organiza [Título] ... [Menu] ... [Botão] em linha */
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px; /* Mais padding horizontal no desktop */
   }
 
-  .sidebar-header {
-    display: block; /* Mostra o header em desktop */
+  .sidebar-header h3 {
+    margin: 0; /* Remove margem de baixo */
   }
 
   .sidebar-menu {
-    flex-grow: 1; /* Permite que o menu ocupe o espaço disponível */
+    flex-wrap: nowrap; /* Impede a quebra de linha do menu */
+    gap: 20px;
+    margin: 0 20px; /* Espaçamento entre o título e o botão */
+  }
+
+  .sidebar-menu li {
+    flex-grow: 0; /* Tira o flex-grow do mobile */
+  }
+
+  .sidebar-menu li a {
+    justify-content: flex-start; /* Alinha links à esquerda no desktop */
+  }
+
+  .logout-button {
+    width: auto; /* Largura automática para o botão */
+    margin-top: 0; /* Remove a margem de cima do mobile */
   }
 
   .dashboard-content {
-    padding: 2.5rem;
+    padding: 40px; /* Mais padding no conteúdo em telas maiores */
   }
+}
 
-  .content-header h1 {
-    font-size: 2.25rem;
-  }
+/* Estilos adicionais para o Outlet (onde o conteúdo das rotas aparece) */
+.dashboard-content > :last-child {
+  padding-top: 10px;
 }

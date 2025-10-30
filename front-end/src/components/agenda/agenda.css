@@ -1,172 +1,262 @@
-/* src/components/DashboardSections/Agenda.css */
+/* --- Variáveis de Cor (Consistente com os outros arquivos) --- */
+:root {
+  --primary-red: #E53E3E; /* Vermelho principal */
+  --primary-red-dark: #C53030; /* Vermelho para hover */
+  
+  --text-light: #f0f0f0; /* Texto claro */
+  --text-placeholder: rgba(255, 255, 255, 0.7);
 
+  /* Cores translúcidas */
+  --bg-glass: rgba(0, 0, 0, 0.4); /* Fundo "vidro" principal */
+  --bg-input: rgba(255, 255, 255, 0.1); /* Fundo de input */
+  --border-light: rgba(255, 255, 255, 0.2); /* Borda translúcida */
+  --bg-glass-light-hover: rgba(255, 255, 255, 0.1); /* Hover mais claro */
+}
+
+/* --- Layout Principal (Dentro do dashboard-content) --- */
+.page-content {
+  width: 100%;
+  color: var(--text-light); /* Garante que todo o texto seja claro */
+}
+
+/* Link "Voltar" */
 .back-to-dashboard-link {
   margin-bottom: 25px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .back-to-dashboard-link a {
-  color: #cbd5e1;
+  color: var(--text-light);
   text-decoration: none;
+  font-weight: 500;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-weight: bold;
-  transition: color 0.3s;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
 .back-to-dashboard-link a:hover {
-  color: #fff;
+  background-color: var(--bg-input); /* Reutiliza o fundo do input para o hover */
 }
 
+/* --- Container (Layout Responsivo) --- */
 .tasks-container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 40px;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap; /* Empilha no mobile */
 }
 
-.tasks-form-section h3, .tasks-list-section h3 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 22px;
+.tasks-form-section,
+.tasks-list-section {
+  flex: 1; /* Divide o espaço */
+  min-width: 300px; /* Garante quebra de linha adequada */
 }
 
-.task-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+/* --- Títulos das Seções --- */
+.tasks-form-section h3,
+.tasks-list-section h3 {
+  color: var(--text-light);
+  margin-top: 0;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+  font-weight: 600;
 }
 
-.task-form .form-group {
-    display: flex;
-    flex-direction: column;
+/* --- Seção do Formulário ("Glassmorphism") --- */
+.tasks-form-section {
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 30px;
+  box-sizing: border-box;
+  height: fit-content; /* Ajusta a altura ao conteúdo */
 }
 
-.task-form label {
-    margin-bottom: 5px;
-    font-size: 14px;
-    color: #cbd5e1;
+.form-group {
+  margin-bottom: 20px;
 }
 
-.task-form input, .task-form textarea {
-    background-color: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 6px;
-    padding: 12px;
-    color: #fff;
-    font-size: 16px;
-    outline: none;
-    font-family: inherit;
-    color-scheme: dark;
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--text-placeholder); /* Cor mais suave para labels */
 }
-.task-form textarea {
-    resize: vertical;
-    min-height: 80px;
+
+/* Inputs, Textarea, Filtros (Estilo translúcido) */
+.form-group input[type="text"],
+.form-group textarea,
+.form-group input[type="date"],
+.form-group input[type="time"],
+.tasks-filter input[type="month"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  color: var(--text-light);
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-.task-form .date-time-group {
-    display: flex;
-    gap: 15px;
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-placeholder);
 }
-.date-time-group > div {
-    flex: 1;
+
+.form-group input:focus,
+.form-group textarea:focus,
+.tasks-filter input:focus {
+  outline: none;
+  border-color: var(--text-light); /* Destaque no focus */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
+
+.form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* Correção para inputs de data/hora no Chrome/Safari */
+input[type="date"],
+input[type="time"],
+input[type="month"] {
+  color-scheme: dark;
+}
+
+/* Estilo para o checkbox (o width/height 'auto' do seu inline style irá sobrepor o 'width: 100%') */
+.form-group input[type="checkbox"] {
+  accent-color: var(--primary-red); /* Deixa o "check" vermelho */
+  cursor: pointer;
+}
+
+/* Grupo de Data e Hora */
+.date-time-group {
+  display: flex;
+  gap: 20px;
+}
+.date-time-group .form-group {
+  flex: 1; /* Divide o espaço igualmente */
+}
+
+/* --- Botões (Vermelhos e Secundários) --- */
 .task-form button {
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #4f46e5;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 10px;
-    text-shadow: none;
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 88px; /* Estilo "pill" */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+.task-form button[type="submit"] {
+  background-color: var(--primary-red);
+  margin-top: 10px;
+}
+
+.task-form button[type="submit"]:hover {
+  background-color: var(--primary-red-dark);
+  transform: scale(1.02);
+}
+
+/* Botão "Cancelar Edição" (Cinza) - Pega o estilo do JSX */
+.task-form button[style*="backgroundColor: #6b7280"] {
+   background-color: #6b7280 !important; /* Garante a cor */
+}
+.task-form button[style*="backgroundColor: #6b7280"]:hover {
+  background-color: #4b5563 !important; /* Cor mais escura no hover */
+  transform: scale(1.02);
+}
+
+
+/* --- Seção da Lista de Tarefas --- */
 .tasks-filter {
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  margin-bottom: 20px;
 }
-
-.tasks-filter input {
-    background-color: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 6px;
-    padding: 10px;
-    color: #fff;
-    font-size: 16px;
-    outline: none;
-    font-family: inherit;
-    color-scheme: dark;
-}
-
 
 .task-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  padding: 0;
+  margin: 0;
 }
 
+/* Item da Tarefa ("Glassmorphism" Card) */
 .task-item {
-    background-color: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    padding: 20px;
+  list-style: none;
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
 }
 
+.task-item:hover {
+  background-color: var(--bg-glass-light-hover);
+}
+
+/* Conteúdo do Card */
 .task-item-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
 }
+
 .task-item-header h4 {
-    margin: 0;
-    font-size: 18px;
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--text-light);
+  word-break: break-word; /* Garante quebra de texto */
+  display: flex; /* Adicionado para alinhar a estrela */
+  align-items: center; /* Adicionado para alinhar a estrela */
 }
+
+/* O estilo da estrela (FaStar) já está sendo aplicado via inline style no JSX */
+
+.task-actions button {
+  background: transparent;
+  border: none;
+  color: var(--text-placeholder);
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 5px;
+  margin-left: 10px;
+  transition: color 0.3s ease;
+}
+
+.task-actions button:hover {
+  color: var(--primary-red); /* Vermelho no hover */
+}
+
 .task-item-body p {
-    margin: 10px 0;
-    color: #cbd5e1;
+  margin: 0 0 15px 0;
+  color: var(--text-placeholder);
+  font-style: italic;
+  word-break: break-word;
 }
 
 .task-item-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 15px;
-    font-size: 14px;
-    color: #a0aec0;
-}
-.task-actions button {
-    background: none;
-    border: none;
-    color: #cbd5e1;
-    cursor: pointer;
-    font-size: 16px;
-    margin-left: 10px;
-    padding: 5px;
-}
-.task-actions button:hover {
-    color: #fff;
+  display: flex;
+  flex-wrap: wrap; /* Garante quebra no mobile */
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-placeholder);
 }
 
-
-/* --- Responsividade --- */
-@media (max-width: 768px) {
-  .tasks-container {
-    /* Muda o layout de grid de 2 colunas para 1 coluna */
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  /* Aplica-se também ao resumo da pág. de Finanças/Investimentos */
-  .finance-summary {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
+.task-item-footer span strong {
+  color: var(--text-light);
 }

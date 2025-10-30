@@ -31,7 +31,7 @@ const Dashboard = () => {
       {/* Barra de Navegação Lateral */}
       <nav className="dashboard-sidebar">
         <div className="sidebar-header">
-          <h3>Meu Painel</h3>
+         
         </div>
         {/* Lista de menu completa e corrigida */}
         <ul className="sidebar-menu">
